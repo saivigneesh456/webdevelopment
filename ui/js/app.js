@@ -5,15 +5,14 @@ function isNumberKey(evt){
     return true;
 }
 
-// window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-//   'size': 'invisible',
-//   'callback': function(response) {
+ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+  'size': 'invisible',
+  'callback': function(response) {
 //     // reCAPTCHA solved, allow signInWithPhoneNumber.
-//     onSignInSubmit();
-//   }
-// });
+    onSignInSubmit();
+  } });
 
-// var recaptchaResponse = grecaptcha.getResponse(window.recaptchaWidgetId);
+var recaptchaResponse = grecaptcha.getResponse(window.recaptchaWidgetId);
 $('#verify_otp_model').hide()
 $('#errorbox').hide()
 
@@ -22,7 +21,7 @@ $('#errorbox').hide()
       'size': 'invisible',
       'callback': function(response) {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
-        //onSignInSubmit();
+        onSignInSubmit();
         
       }
     });
@@ -30,22 +29,20 @@ $('#errorbox').hide()
 
   recaptchaVerifier.render().then(function(widgetId) {
       window.recaptchaWidgetId = widgetId;
-    //  updateSignInButtonUI();
+     updateSignInButtonUI();
     });
 
   var aadhaar_no_phone_no = {
-  	"7382537xxxxx": "915801xxxx",
-  	"300000000000": "7276xxxxxx",
-	"<replace your aadhaar no here>": "<your phone number>",
+	"949704xxxx": "7680xxx"
   }
 
 
   function onSignInSubmit() {
     window.signingIn = true;
     $('#errorbox').hide();
-   // updateSignInButtonUI();
+   updateSignInButtonUI();
     var phoneNumber = "+91" + aadhaar_no_phone_no[$('#aadhaar_no').val()];
-    //console.log(phoneNumber);
+    console.log(phoneNumber);
       var d = new Date();
       d.setTime(d.getTime() + (1*24*60*60*1000));      
       var expires = "expires="+ d.toUTCString();
@@ -60,22 +57,22 @@ $('#errorbox').hide()
             // user in with confirmationResult.confirm(code).
             window.confirmationResult = confirmationResult;
             window.signingIn = false;
-           // updateSignInButtonUI();
-            // $('.verification-code-form').show()
-            // $('#hidepf').hide()
+           updateSignInButtonUI();
+            $('.verification-code-form').show()
+            $('#hidepf').hide()
             $('#enter_aadhaarno').hide()
             $('#verify_otp_model').show()
             console.log('otp');
             
           }).catch(function (error) {
             // Error; SMS not sent
-            // $('.main_loader').hide()
+             $('.main_loader').hide()
 
-            //console.error('Error during signInWithPhoneNumber', error);
+            console.error('Error during signInWithPhoneNumber', error);
             window.alert('error\n\n'+error);
             window.signingIn = false;
-            //updateSignInFormUI();
-            //updateSignInButtonUI();
+            updateSignInFormUI();
+            updateSignInButtonUI();
             $('.verification-code-form').hide()
           });
   }
@@ -86,7 +83,7 @@ $(verifyotp).click(function(){
       	confirmationResult.confirm(code).then(function (result) {
         // User signed in successfully.
         var user = result.user;
-        window.verifyingCode = false;
+        window.verifyingCode = true;
         //login success
         console.log(user.uid);
         var d = new Date();

@@ -55,12 +55,12 @@ $(document).ready(function () {
 			        }
 			      }
 				
-			 });//.done(function(msg){
-			// 	$(errormsg).text('Redirecting...');
+			 }); done(function(msg){
+			 	$(errormsg).text('Redirecting...');
 
-			// }).fail(function(e){
-			// 	$(errormsg).text(e);
-			// });
+			 }).fail(function(e){
+			 	$(errormsg).text(e);
+			 });
 		}
 	});
 });
